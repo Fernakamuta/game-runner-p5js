@@ -4,19 +4,17 @@ let cenario;
 let somDoJogo;
 let personagem;
 
-console.log('Hello!!')
-
 function preload() {
-  imagemCenario = loadImage('imagens/cenario/floresta.png');
-  imagemPersonagem = loadImage('imagens/personagem/correndo.png');
+  imagemCenario = loadImage('imagens/cenario/pokeflorest.jpg');
+  imagemPersonagem = loadImage('imagens/personagem/red.png');
   somDoJogo = loadSound('sons/trilha_jogo.mp3');
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   cenario = new Cenario(imagemCenario, 10);
-  personagem = new Personagem(imagemPersonagem);
-  frameRate(30);
+  personagem = new Personagem(imagemPersonagem, 64, 64, 4, 4, 3.5, 50);
+  frameRate(15);
   somDoJogo.loop();
 }
 

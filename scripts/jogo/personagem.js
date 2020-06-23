@@ -1,43 +1,48 @@
 class Personagem {
-  constructor(imagem) {
+  constructor(imagem, spriteWidth, spriteHeight, nColunas, nLinhas, sizeRate=0.5, dx=0) {
     this.imagem = imagem;
-    this.matriz = [
-      [0, 0],
-      [220, 0],
-      [440, 0],
-      [660, 0],
-      [0, 270],
-      [220, 270],
-      [440, 270],
-      [660, 270],
-      [0, 540],
-      [220, 540],
-      [440, 540],
-      [660, 540],
-      [0, 810],
-      [220, 810],
-      [440, 810],
-      [660, 810]
-    ]
-    this.frameAtual = 0
+    this.sizeRate = sizeRate
+    this.frameAtual = 0;
+    this.dx = dx;
+
+    this.spriteWidth = spriteWidth;
+    this.spriteHeight = spriteHeight;
+    this.nColunas = nColunas;
+    this.nLinhas = nLinhas;
+
+    this.criarMatriz();
   }
+
+  criarMatriz() {
+    this.matriz = [];
+    for (let coluna = 0; coluna < this.nColunas; coluna++) {
+      for (let linha = 0; linha < this.nLinhas; linha++) {
+        if (coluna == 2) {
+          this.matriz.push([linha * this.spriteWidth, coluna * this.spriteHeight]);
+        }
+      }
+    }
+  }
+
   exibe() {
+    console.log(this.matriz)
     image(
       this.imagem,
-      0,
-      height - 135,
-      110,
-      135,
+      this.dx,
+      height - this.spriteHeight * this.sizeRate,
+      this.spriteWidth * this.sizeRate,
+      this.spriteHeight * this.sizeRate,
       this.matriz[this.frameAtual][0],
       this.matriz[this.frameAtual][1],
-      220,
-      270
+      this.spriteWidth,
+      this.spriteHeight
     );
     this.anima();
   }
+
   anima() {
     this.frameAtual++
-    if (this.frameAtual > this.matriz.length -1) {
+    if (this.frameAtual > this.matriz.length - 1) {
       this.frameAtual = 0;
     }
   }
