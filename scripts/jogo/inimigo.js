@@ -1,7 +1,6 @@
 class Inimigo extends Animacao {
-  constructor(matriz, imagem, x, largura, altura, larguraSprite, alturaSprite) {
-    super(matriz, imagem, x, largura, altura, larguraSprite, alturaSprite);
-
+  constructor(matriz, imagem, x, propImagem, nLinhas, nColunas) {
+    super(matriz, imagem, x, propImagem, nLinhas, nColunas);
     this.velocidade = 15;
   }
 

@@ -1,4 +1,5 @@
 let imagemCenario;
+let imagemPerdeu;
 let imagemPersonagem;
 let imagemInimigo;
 let cenario;
@@ -58,8 +59,10 @@ const matrizInimigo = [
 
 function preload() {
   imagemCenario = loadImage('imagens/cenario/floresta.png');
+  imagemPerdeu = loadImage('imagens/cenario/gameover.jpg');
   imagemPersonagem = loadImage('imagens/personagem/correndo.png');
   imagemInimigo = loadImage('imagens/inimigos/gotinha.png');
+  imagemPedra = loadImage('imagens/inimigos/pedra.jpg');
   somDoJogo = loadSound('sons/trilha_jogo.mp3');
   somDoPulo = loadSound('sons/somPulo.mp3');
 }
@@ -68,17 +71,17 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   cenario = new Cenario(imagemCenario, 10);
 
-  personagem = new Personagem(matrizPersonagem, imagemPersonagem, 0, 110, 135, 220, 270);
-  inimigo = new Inimigo(matrizInimigo, imagemInimigo, width - 200, 52, 52, 104, 104);
+
+  personagem = new Personagem(matrizPersonagem, imagemPersonagem, 0, 0.8, 4, 4);
+  inimigo = new Inimigo(matrizInimigo, imagemInimigo, width - 200, 0.8, 7, 4);
 
   frameRate(40);
-  // somDoJogo.loop();
+  somDoJogo.loop();
 }
 
 function keyPressed() {
   if (key === 'ArrowUp') {
     personagem.pula();
-    somDoPulo.play();
   }
 }
 
@@ -94,5 +97,7 @@ function draw() {
 
   if (personagem.estaColidindo(inimigo)) {
     noLoop();
+    somDoJogo.stop();
+    image(imagemPerdeu, 0, 0, width, height);
   }
 }

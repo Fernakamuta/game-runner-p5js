@@ -1,15 +1,30 @@
 class Animacao {
-  constructor(matriz, imagem, x, largura, altura, larguraSprite, alturaSprite) {
+  constructor(matriz, imagem, x, propImagem, nLinhas, nColunas) {
     this.frameAtual = 0;
-    this.matriz = matriz;
     this.imagem = imagem;
-    this.largura = largura;
-    this.altura = altura;
+    this.matriz = matriz;
+
+    this.larguraSprite = imagem.width / nColunas;
+    this.alturaSprite = imagem.height / nLinhas;
+
+    this.largura = this.larguraSprite * propImagem;
+    this.altura = this.alturaSprite * propImagem;
+
     this.x = x;
     this.y = height - this.altura;
-    this.larguraSprite = larguraSprite;
-    this.alturaSprite = alturaSprite;
+
   }
+
+  criarMatriz(nLinhas, nColunas) {
+    this.matriz = [];
+    console.log(nLinhas, nColunas)
+    for (let coluna = 0; coluna < nColunas; coluna++) {
+      for (let linha = 0; linha < nLinhas; linha++) {
+        this.matriz.push([linha * this.larguraSprite, coluna * this.alturaSprite]);
+      }
+    }
+  }
+
   exibe() {
     image(
       this.imagem,
@@ -24,6 +39,7 @@ class Animacao {
     );
     this.anima();
   }
+
   anima() {
     this.frameAtual++
     if (this.frameAtual > this.matriz.length - 1) {
